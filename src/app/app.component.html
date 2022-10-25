@@ -1,0 +1,51 @@
+<div class="main d-flex justify-content-center align-items-center">
+  <div class="todo p-4 text-white">
+    <h1 class="mt-3 mb-5 text-center">To Do List</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit($event)" class="mb-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <input type="text" name="title" id="title" formControlName="title" placeholder="Enter your task"
+          class="ps-2 text-white" />
+        <button [disabled]="form.invalid" class="btn-floating waves-effect waves-light blue">
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+      <div *ngIf="title?.invalid && title?.touched && title?.errors">
+        <small *ngIf="title?.errors?.['required']" class="text-danger">
+          You must enter task..
+        </small>
+      </div>
+    </form>
+    <ul class="mb-5">
+      <li *ngFor="let todo of todos; let i = index;" class="mb-3">
+        <div *ngIf="!this.todo.isCompleted" class="d-flex align-items-center justify-content-between">
+          <div>{{this.todo.title}}</div>
+          <div>
+            <button (click)="isCompleted(this.todo.id)" class="btn-floating waves-effect waves-light green me-2">
+              <i class="material-icons">check</i>
+            </button>
+            <button (click)="delete(this.todo.id)" class="btn-floating waves-effect waves-light red">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <h3 class="text-center mb-4">Completed Task</h3>
+    <ul>
+      <li *ngFor="let todo of todos; let i = index;" class="mb-3">
+        <div *ngIf="this.todo.isCompleted" class="d-flex align-items-center justify-content-between">
+          <!-- <div>{{i+1}}- {{this.todo.title}}</div> -->
+          <div>{{this.todo.title}}</div>
+          <div>
+            <button (click)="delete(this.todo.id)" class="btn-floating waves-effect waves-light red">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="text-center mt-5">
+      <button class="btn btn-success rounded-0" (click)="clearAll()">Clear All Tasks</button>
+    </div>
+  </div>
+</div>

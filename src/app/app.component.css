@@ -1,0 +1,31 @@
+.main {
+  background-image: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .9)), url(src/assets/To_Do_List.png);
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-size: cover;
+}
+
+.todo {
+  width: 400px;
+  margin: 0 auto;
+  border-radius: 25px;
+  /* background-color: white; */
+}
+
+.todo input {
+  width: 85%;
+}
+
+h1,
+h3 {
+  font-family: 'Pattaya', sans-serif;
+}
+h1{
+  font-size: 4em;
+}
+
+@media(max-width: 538px) {
+  .todo {
+    width: 300px;
+  }
+}
