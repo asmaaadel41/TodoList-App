@@ -9,7 +9,8 @@
   width: 400px;
   margin: 0 auto;
   border-radius: 25px;
-  /* background-color: white; */
+  /*background-color: white;*/
+  border: 1px solid #525252;
 }
 
 .todo input {
@@ -20,7 +21,8 @@ h1,
 h3 {
   font-family: 'Pattaya', sans-serif;
 }
-h1{
+
+h1 {
   font-size: 4em;
 }
 
