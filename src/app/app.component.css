@@ -25,7 +25,10 @@ h3 {
 h1 {
   font-size: 4em;
 }
-
+::ng-deep .snack-style {
+  background-color: rgb(72, 236, 39);
+  color: rgb(82, 82, 82);
+}
 @media(max-width: 538px) {
   .todo {
     width: 300px;

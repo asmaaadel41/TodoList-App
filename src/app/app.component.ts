@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Guid } from "guid-typescript";
 import { Todo } from './models/todo.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +12,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class AppComponent {
   todos: Todo[] = [];
   form: FormGroup;
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private toast: NgToastService) {
     this.todos = [
-      new Todo(Guid.create(), "Cleaning home", false),
-      new Todo(Guid.create(), "Washing dress", false),
+      // new Todo(Guid.create(), "Cleaning home", false),
+      // new Todo(Guid.create(), "Washing dress", false),
     ]
+    // this.saveTodos();
     this.form = _formBuilder.group({
       title: ['', [Validators.required]]
     })
@@ -23,16 +25,36 @@ export class AppComponent {
   get title() {
     return this.form.get("title");
   }
-  onSubmit(event: string) {
+  ngOnInit(): void {
+    let savedTodo = localStorage.getItem('todo');
+    savedTodo ? this.todos = JSON.parse(savedTodo) : this.todos = [];
+  }
+
+  add(event: any) {
     console.log(this.form.value);
     let todo = new Todo(Guid.create(), this.title?.value, false);
-    this.todos.push(todo);
     this.form.reset();
+    if ('todo' in localStorage) {
+      this.todos = JSON.parse(localStorage.getItem('todo')!);
+      let exist = this.todos.filter((item) => item.title === todo.title)[0];
+      if (exist) {
+        this.showInfo()
+      }
+      else {
+        this.todos.push(todo);
+        this.saveTodos();
+      }
+    }
+    else {
+      this.todos.push(todo);
+      this.saveTodos();
+    }
   }
   isCompleted(id: Guid) {
     let todo = this.todos.filter((item) => item.id === id)[0]
     todo.isCompleted = true
     // console.log(todo);
+    this.saveTodos();
   }
   delete(id: Guid) {
     let todo = this.todos.filter((item) => item.id === id)[0];
@@ -41,8 +63,16 @@ export class AppComponent {
       this.todos.splice(index, 1)
     }
     // console.log(index)
+    this.saveTodos();
   }
   clearAll() {
-    this.todos = []
+    this.todos = [];
+    localStorage.clear();
+  }
+  saveTodos() {
+    localStorage.setItem('todo', JSON.stringify(this.todos));
+  }
+  showInfo() {
+    this.toast.info({ detail: "Info", summary: 'This Task Is Already Exsit', duration: 3000 });
   }
 }
