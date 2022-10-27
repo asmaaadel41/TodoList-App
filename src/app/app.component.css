@@ -1,15 +1,15 @@
 .main {
   background-image: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .9)), url(src/assets/To_Do_List.png);
   background-repeat: no-repeat;
-  height: 100vh;
   background-size: cover;
+  min-height: 100vh;
+  background-attachment: fixed;
 }
 
 .todo {
   width: 400px;
   margin: 0 auto;
   border-radius: 25px;
-  /*background-color: white;*/
   border: 1px solid #525252;
 }
 
@@ -25,10 +25,12 @@ h3 {
 h1 {
   font-size: 4em;
 }
+
 ::ng-deep .snack-style {
   background-color: rgb(72, 236, 39);
   color: rgb(82, 82, 82);
 }
+
 @media(max-width: 538px) {
   .todo {
     width: 300px;
