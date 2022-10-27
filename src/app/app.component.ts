@@ -14,10 +14,9 @@ export class AppComponent {
   form: FormGroup;
   constructor(private _formBuilder: FormBuilder, private toast: NgToastService) {
     this.todos = [
-      // new Todo(Guid.create(), "Cleaning home", false),
-      // new Todo(Guid.create(), "Washing dress", false),
-    ]
-    // this.saveTodos();
+      new Todo(Guid.create(), "Cleaning room", false),
+      new Todo(Guid.create(), "Reading book", false),
+    ];
     this.form = _formBuilder.group({
       title: ['', [Validators.required]]
     })
@@ -27,7 +26,7 @@ export class AppComponent {
   }
   ngOnInit(): void {
     let savedTodo = localStorage.getItem('todo');
-    savedTodo ? this.todos = JSON.parse(savedTodo) : this.todos = [];
+    savedTodo ? this.todos = JSON.parse(savedTodo) : this.todos;
   }
 
   add(event: any) {
@@ -73,6 +72,6 @@ export class AppComponent {
     localStorage.setItem('todo', JSON.stringify(this.todos));
   }
   showInfo() {
-    this.toast.info({ detail: "Info", summary: 'This Task Is Already Exsit', duration: 3000 });
+    this.toast.error({ detail: "Error", summary: 'This Task Is Already Exsit', duration: 3000 });
   }
 }
