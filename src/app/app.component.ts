@@ -72,6 +72,6 @@ export class AppComponent {
     localStorage.setItem('todo', JSON.stringify(this.todos));
   }
   showInfo() {
-    this.toast.error({ detail: "Error", summary: 'This Task Is Already Exsit', duration: 3000 });
+    this.toast.error({ detail: "Error", summary: 'This Task Is Already Exist', duration: 3000 });
   }
 }
