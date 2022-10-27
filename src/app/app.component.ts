@@ -28,7 +28,6 @@ export class AppComponent {
     let savedTodo = localStorage.getItem('todo');
     savedTodo ? this.todos = JSON.parse(savedTodo) : this.todos;
   }
-
   add(event: any) {
     console.log(this.form.value);
     let todo = new Todo(Guid.create(), this.title?.value, false);
@@ -52,7 +51,6 @@ export class AppComponent {
   isCompleted(id: Guid) {
     let todo = this.todos.filter((item) => item.id === id)[0]
     todo.isCompleted = true
-    // console.log(todo);
     this.saveTodos();
   }
   delete(id: Guid) {
@@ -61,7 +59,6 @@ export class AppComponent {
     if (index > -1) {
       this.todos.splice(index, 1)
     }
-    // console.log(index)
     this.saveTodos();
   }
   clearAll() {
@@ -72,6 +69,6 @@ export class AppComponent {
     localStorage.setItem('todo', JSON.stringify(this.todos));
   }
   showInfo() {
-    this.toast.error({ detail: "Error", summary: 'This Task Is Already Exist', duration: 3000 });
+    this.toast.error({ detail: "Error", summary: 'This Task Already Exist', duration: 3000 });
   }
 }
