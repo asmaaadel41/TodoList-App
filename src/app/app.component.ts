@@ -36,7 +36,7 @@ export class AppComponent {
       this.todos = JSON.parse(localStorage.getItem('todo')!);
       let exist = this.todos.filter((item) => item.title === todo.title)[0];
       if (exist) {
-        this.showInfo()
+        this.showError()
       }
       else {
         this.todos.push(todo);
@@ -64,11 +64,16 @@ export class AppComponent {
   clearAll() {
     this.todos = [];
     localStorage.clear();
+    this.showSuccess();
+
   }
   saveTodos() {
     localStorage.setItem('todo', JSON.stringify(this.todos));
   }
-  showInfo() {
+  showError() {
     this.toast.error({ detail: "Error", summary: 'This Task Already Exist', duration: 3000 });
+  }
+  showSuccess() {
+    this.toast.success({ detail: "Success", summary: 'To Do List Is Empty', duration: 3000 });
   }
 }
